@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Social Network Graph Analysis</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>Social Network Graph Analysis</h1>
+    <p class="subtitle">GCN-based friend recommendation on a college social network</p>
+    <nav>
+      <button class="tab-btn active" data-tab="graph">Graph</button>
+      <button class="tab-btn" data-tab="matrices">Matrices</button>
+      <button class="tab-btn" data-tab="embedding">Embeddings</button>
+      <button class="tab-btn" data-tab="recommend">Recommendations</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ── Tab 1: Graph Visualization ── -->
+    <section id="tab-graph" class="tab active">
+      <div class="panel-header">
+        <h2>Graph Visualization</h2>
+        <p>Drag nodes to explore. Hover for features. Edge thickness = friendship weight.</p>
+      </div>
+      <div class="graph-controls">
+        <label>Filter by interest:
+          <select id="interest-filter">
+            <option value="all">All</option>
+            <option value="ML">Machine Learning</option>
+            <option value="WebDev">Web Dev</option>
+            <option value="DS">Data Science</option>
+            <option value="Cyber">Cybersecurity</option>
+          </select>
+        </label>
+        <label>
+          <input type="checkbox" id="show-weights" checked/>
+          Show edge weights
+        </label>
+      </div>
+      <div id="graph-container">
+        <svg id="graph-svg"></svg>
+        <div id="node-tooltip" class="tooltip hidden"></div>
+      </div>
+      <div id="graph-legend" class="legend"></div>
+    </section>
+
+    <!-- ── Tab 2: Matrices ── -->
+    <section id="tab-matrices" class="tab">
+      <div class="panel-header">
+        <h2>Graph Matrices</h2>
+        <p>Click a matrix name to view it. Cell color intensity encodes value magnitude.</p>
+      </div>
+      <div class="matrix-tabs">
+        <button class="mat-btn active" data-matrix="adjacency">Adjacency (A)</button>
+        <button class="mat-btn" data-matrix="degree">Degree (D)</button>
+        <button class="mat-btn" data-matrix="incidence">Incidence (B)</button>
+        <button class="mat-btn" data-matrix="laplacian">Laplacian (L)</button>
+      </div>
+      <div id="matrix-description" class="matrix-desc"></div>
+      <div id="matrix-container" class="matrix-wrap"></div>
+    </section>
+
+    <!-- ── Tab 3: Embeddings ── -->
+    <section id="tab-embedding" class="tab">
+      <div class="panel-header">
+        <h2>Node Embeddings</h2>
+        <p>8-dimensional GCN embeddings for each node. Bar height = embedding dimension value.</p>
+      </div>
+      <div id="embedding-grid" class="emb-grid"></div>
+      <div class="panel-header" style="margin-top:2rem">
+        <h3>Training Loss Curve</h3>
+      </div>
+      <div id="loss-chart"></div>
+    </section>
+
+    <!-- ── Tab 4: Recommendations ── -->
+    <section id="tab-recommend" class="tab">
+      <div class="panel-header">
+        <h2>Friend Recommendations</h2>
+        <p>Select a node to see GCN-based cosine similarity recommendations.</p>
+      </div>
+      <div class="rec-controls">
+        <label>Select node:
+          <select id="rec-node-select"></select>
+        </label>
+      </div>
+      <div id="rec-container"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Built with NetworkX · PyTorch Geometric · D3.js &nbsp;|&nbsp;
+       <a href="https://github.com/pritdesai09/social-network-gnn" target="_blank">
+         View on GitHub
+       </a>
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
